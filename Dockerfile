@@ -27,10 +27,9 @@ RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup &&\
     rm -rf /tmp/*
 
 ARG PLEX_PASS='false'
-ARG PLEX_USER_NAME=''
-ARG PLEX_USER_PASS=''
+ARG PLEX_TOKEN=''
 
-RUN if [ "${PLEX_PASS}" = "true" ]; then PLEX_TYPE_FLAG="--email=${PLEX_USER_NAME} --pass=${PLEX_USER_PASS}" ; fi && \
+RUN if [ "${PLEX_PASS}" = "true" ]; then PLEX_TYPE_FLAG="--token=${PLEX_TOKEN}" ; fi && \
     git clone --depth 1 https://github.com/mrworf/plexupdate.git /plexupdate && \
     /plexupdate/plexupdate.sh ${PLEX_TYPE_FLAG} -a -d  && \
     apt-get -y purge git &&\
